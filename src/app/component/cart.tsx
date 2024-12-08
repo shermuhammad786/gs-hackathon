@@ -1,87 +1,106 @@
-"use client"
-import React from 'react';
+import Image from "next/image"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { Input } from "@/components/ui/input"
 
-interface Product {
-    name: string;
-    description: string;
-    price: number;
-    image: string;
-    quantity: number;
+export default function CartPage() {
+  return (
+    <div className="mx-auto max-w-3xl px-4 py-8">
+      <h1 className="text-2xl font-medium mb-8">Your shopping cart</h1>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[50%]">Product</TableHead>
+            <TableHead>Quantity</TableHead>
+            <TableHead className="text-right">Total</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>
+              <div className="flex gap-4">
+                <Image
+                  src="/placeholder.svg"
+                  alt="Greystone vase"
+                  width={80}
+                  height={80}
+                  className="rounded-lg object-cover"
+                />
+                <div>
+                  <h3 className="font-medium">Greystone vase</h3>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    A timeless ceramic vase with a muted grey glaze
+                  </p>
+                  <p className="text-sm text-muted-foreground mt-1">£85</p>
+                </div>
+              </div>
+            </TableCell>
+            <TableCell>
+              <Input
+                type="number"
+                min="1"
+                defaultValue="1"
+                className="w-20"
+              />
+            </TableCell>
+            <TableCell className="text-right">£85</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>
+              <div className="flex gap-4">
+                <Image
+                  src="/placeholder.svg"
+                  alt="Basic white vase"
+                  width={80}
+                  height={80}
+                  className="rounded-lg object-cover"
+                />
+                <div>
+                  <h3 className="font-medium">Basic white vase</h3>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Beautiful and simple this is one for the classics
+                  </p>
+                  <p className="text-sm text-muted-foreground mt-1">£125</p>
+                </div>
+              </div>
+            </TableCell>
+            <TableCell>
+              <Input
+                type="number"
+                min="1"
+                defaultValue="1"
+                className="w-20"
+              />
+            </TableCell>
+            <TableCell className="text-right">£125</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+      <div className="mt-8 space-y-4">
+        <div className="flex justify-end">
+          <div className="text-right">
+            <span className="text-base mr-4">Subtotal</span>
+            <span className="text-base font-medium">£210</span>
+          </div>
+        </div>
+        <p className="text-sm text-muted-foreground text-right">
+          Taxes and shipping are calculated at checkout
+        </p>
+        <div className="flex justify-end mt-8">
+          <Button asChild className="bg-[#1d1d35] hover:bg-[#2d2d45] px-8">
+            <Link href="/checkout">Go to checkout</Link>
+          </Button>
+        </div>
+      </div>
+    </div>
+  )
 }
 
-const products: Product[] = [
-    {
-        name: 'Graystone vase',
-        description: 'A timeless ceramic vase with a fit color gray glaze.',
-        price: 85,
-        image: '/Photo.svg', // Replace with actual image path
-        quantity: 1,
-    },
-    {
-        name: 'Basic white vase',
-        description: 'Beautiful and simple this is great for displaying',
-        price: 125,
-        image: '/basic-white-vase.jpg', // Replace with actual image path
-        quantity: 1,
-    },
-];
-
-const CartPage: React.FC = () => {
-    const subTotal = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
-
-    return (
-        <div className="container max-w-full bg-gray-50">
-            <div className='mx-20 px-10 py-5'>
-            <h1 className="text-3xl font-bold mb-4 ">Your shopping cart</h1>
-
-<table className="w-full border-collapse">
-    <thead>
-        <tr>
-            <th className="text-left p-2">Product</th>
-            <th className="text-left p-2"></th>
-            <th className="text-right p-2">Quantity</th>
-            <th className="text-right p-2">Total</th>
-        </tr>
-    </thead>
-    <tbody>
-        {products.map((product) => (
-            <tr key={product.name}>
-                <td className="p-2">
-                    <img src={product.image} alt={product.name} className="w-20 h-20 object-cover" />
-                </td>
-                <td className="p-2">
-                    <h2 className="font-medium">{product.name}</h2>
-                    <p className="text-gray-600 text-sm">{product.description}</p>
-                    <p className="text-gray-800 font-medium">£{product.price}</p>
-                </td>
-                <td className="p-2 text-right">
-                    <input
-                        type="number"
-                        min="1"
-                        value={product.quantity}
-                        onChange={(e) => {
-                            // Update product quantity logic here
-                        }}
-                        className="border border-gray-300 px-2 py-1 rounded w-16 text-right"
-                    />
-                </td>
-                <td className="p-2 text-right">£{product.price * product.quantity}</td>
-            </tr>
-        ))}
-    </tbody>
-</table>
-
-<div className="mt-4 text-right">
-    <p className="text-gray-800 font-medium">Subtotal: £{subTotal}</p>
-    <p className="text-sm text-gray-600">Taxes and shipping are calculated at checkout</p>
-    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">
-        Go to checkout
-    </button>
-            </div>
-           
-            </div>
-        </div>
-    );
-};
-
-export default CartPage;
