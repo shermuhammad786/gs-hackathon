@@ -7,7 +7,7 @@ export function Footer() {
   return (
     <footer className="bg-[#2A254B] text-white">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-12">
           <div>
             <h3 className="font-medium mb-4">Menu</h3>
             <ul className="space-y-2">
@@ -36,9 +36,9 @@ export function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="font-medium mb-4">Join our mailing list</h3>
-            <form className="space-y-4">
-              <Input type="email" placeholder="your@email.com" className="bg-white/10 border-white/20" />
+            <h3 className="font-medium mb-4 gird grid-cols-2">Join our mailing list</h3>
+            <form className="flex">
+              <Input type="email" placeholder="your@email.com" className="bg-white/10 border-white/20 w-100"/>
               <Button variant="secondary">Sign up</Button>
             </form>
           </div>

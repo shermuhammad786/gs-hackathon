@@ -3,7 +3,7 @@ import Image from "next/image"
 
 export function Hero() {
     return (
-        <section className="grid md:grid-cols-2">
+        <section className="px-12 py-12 grid md:grid-cols-2">
             <div className="bg-[#2A254B] text-white p-8 md:p-16 flex flex-col justify-center">
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
                     The furniture brand for the future, with timeless designs
