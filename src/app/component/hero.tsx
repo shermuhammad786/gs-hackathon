@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import Image from "next/image"
 
 export function Hero() {
@@ -11,9 +12,9 @@ export function Hero() {
                 <p className="text-gray-300 mb-8 max-w-md">
                     A new era in eco-friendly furniture with Avion, the French luxury retail brand with nice fonts, tasteful colors and a beautiful way to display things digitally using modern web technologies.
                 </p>
-                <Button variant="secondary" size="lg" className="w-fit">
+                <Link href={"/Product"}><Button variant="secondary" size="lg" className="w-fit">
                     View collection
-                </Button>
+                </Button></Link>
             </div>
             <div className="relative aspect-square md:aspect-auto">
                 <Image
