@@ -18,7 +18,7 @@ export function About() {
             </div>
             <div className="relative aspect-square md:aspect-auto">
                 <Image
-                    src="/asset/image.svg"
+                    src="/asset/Image.svg"
                     alt="Living room"
                     fill
                     className="object-cover"

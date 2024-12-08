@@ -38,7 +38,7 @@ const newProducts = [
   {
     name: "The Silky Vase",
     price: 125,
-    image: "/asset/photo.svg",
+    image: "/assetPhoto.svg",
     slug: "the-silky-vase",
     width: "305px",
     height: "375px"
