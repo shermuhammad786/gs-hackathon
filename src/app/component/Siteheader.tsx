@@ -15,7 +15,7 @@ export function SiteHeader() {
           <p className="text-center">
             Free delivery on all orders over £50 with code easter checkout
           </p>
-          <button 
+          <button
             onClick={() => setShowBanner(false)}
             className="absolute right-4 hover:text-gray-300"
           >
@@ -24,7 +24,7 @@ export function SiteHeader() {
           </button>
         </div>
       )}
-      
+
       <div className="border-b">
         <div className="container mx-auto px-4">
           <div className="flex h-16 items-center justify-between">
@@ -34,7 +34,7 @@ export function SiteHeader() {
 
 
             <div className="flex items-center space-x-6">
-              <Link href="/About" className="text-sm text-gray-600 hover:text-gray-900">
+              <Link href="/about" className="text-sm text-gray-600 hover:text-gray-900">
                 About us
               </Link>
               <Link href="/contact" className="text-sm text-gray-600 hover:text-gray-900">

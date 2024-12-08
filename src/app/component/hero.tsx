@@ -12,7 +12,7 @@ export function Hero() {
                 <p className="text-gray-300 mb-8 max-w-md">
                     A new era in eco-friendly furniture with Avion, the French luxury retail brand with nice fonts, tasteful colors and a beautiful way to display things digitally using modern web technologies.
                 </p>
-                <Link href={"/Product"}><Button variant="secondary" size="lg" className="w-fit">
+                <Link href={"/product"}><Button variant="secondary" size="lg" className="w-fit">
                     View collection
                 </Button></Link>
             </div>

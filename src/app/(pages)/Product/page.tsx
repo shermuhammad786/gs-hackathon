@@ -19,83 +19,119 @@ import { ChevronDown } from 'lucide-react'
 const products = [
   {
     id: 1,
-    name: "The Comfy chair",
-    price: "£250",
-    image: "/placeholder.svg"
+    name: "The Dandy chair",
+    price: 250,
+    image: "/asset/Hero Blocks.svg",
+    slug: "the-dandy-chair",
+    width: "305px",
+    height: "375px"
   },
   {
     id: 2,
     name: "Rustic Vase Set",
-    price: "£85",
-    image: "/placeholder.svg"
+    price: 155,
+    image: "/asset/Parent.svg",
+    slug: "rustic-vase-set",
+    width: "305px",
+    height: "375px"
   },
   {
     id: 3,
     name: "The Silky Vase",
-    price: "£35",
-    image: "/placeholder.svg"
+    price: 125,
+    image: "/asset/Photo.svg",
+    slug: "the-silky-vase",
+    width: "305px",
+    height: "375px"
   },
   {
     id: 4,
-    name: "The Lamp Series",
-    price: "£95",
-    image: "/placeholder.svg"
+    name: "The Lucy Lamp",
+    price: 399,
+    image: "/asset/LuckyLamp.svg",
+    slug: "the-lucy-lamp",
+    width: "305px",
+    height: "375px"
   },
   {
     id: 5,
-    name: "The Dining chair",
-    price: "£225",
-    image: "/placeholder.svg"
+    name: "The Dandy chair",
+    price: 250,
+    image: "/asset/Hero Blocks.svg",
+    slug: "the-dandy-chair",
+    width: "305px",
+    height: "375px"
   },
   {
     id: 6,
     name: "Rustic Vase Set",
-    price: "£65",
-    image: "/placeholder.svg"
+    price: 155,
+    image: "/asset/Parent.svg",
+    slug: "rustic-vase-set",
+    width: "305px",
+    height: "375px"
   },
   {
     id: 7,
     name: "The Silky Vase",
-    price: "£45",
-    image: "/placeholder.svg"
+    price: 125,
+    image: "/asset/Photo.svg",
+    slug: "the-silky-vase",
+    width: "305px",
+    height: "375px"
   },
   {
     id: 8,
-    name: "The Lamp Series",
-    price: "£85",
-    image: "/placeholder.svg"
+    name: "The Lucy Lamp",
+    price: 399,
+    image: "/asset/LuckyLamp.svg",
+    slug: "the-lucy-lamp",
+    width: "305px",
+    height: "375px"
   },
   {
     id: 9,
-    name: "The Dining chair",
-    price: "£250",
-    image: "/placeholder.svg"
+    name: "The Dandy chair",
+    price: 250,
+    image: "/asset/Hero Blocks.svg",
+    slug: "the-dandy-chair",
+    width: "305px",
+    height: "375px"
   },
   {
     id: 10,
     name: "Rustic Vase Set",
-    price: "£85",
-    image: "/placeholder.svg"
+    price: 155,
+    image: "/asset/Parent.svg",
+    slug: "rustic-vase-set",
+    width: "305px",
+    height: "375px"
   },
   {
     id: 11,
     name: "The Silky Vase",
-    price: "£35",
-    image: "/placeholder.svg"
+    price: 125,
+    image: "/asset/Photo.svg",
+    slug: "the-silky-vase",
+    width: "305px",
+    height: "375px"
   },
   {
     id: 12,
-    name: "The Lamp Series",
-    price: "£120",
-    image: "/placeholder.svg"
-  },
+    name: "The Lucy Lamp",
+    price: 399,
+    image: "/asset/LuckyLamp.svg",
+    slug: "the-lucy-lamp",
+    width: "305px",
+    height: "375px"
+  }
 ]
 
 export default function ProductsPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-medium mb-8">All products</h1>
-      
+
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
         <div className="flex flex-wrap items-center gap-2">
           <DropdownMenu>
@@ -174,8 +210,8 @@ export default function ProductsPage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products.map((product) => (
-          <Link 
-            key={product.id} 
+          <Link
+            key={product.id}
             href={`/products/${product.id}`}
             className="group"
           >

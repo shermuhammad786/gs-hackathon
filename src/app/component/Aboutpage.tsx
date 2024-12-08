@@ -9,12 +9,12 @@ export default function AboutPage() {
         <h1 className="text-3xl md:text-4xl font-light max-w-2xl">
           A brand built on the love of craftsmanship, quality and outstanding customer service
         </h1>
-        <Link 
-          href="/products" 
+        <Link
+          href="/products"
           className="text-sm text-gray-600 hover:text-gray-900 bg-gray-50"
         >
           <Button>
-          View all products
+            View all products
           </Button>
         </Link>
       </div>
@@ -29,8 +29,8 @@ export default function AboutPage() {
               A great place to tell your story and let your users know a little more about you.
             </p>
           </div>
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             className="self-start text-white border-white hover:bg-white hover:text-[#1d1d35] transition-colors"
           >
             View collection
@@ -39,7 +39,7 @@ export default function AboutPage() {
 
         <div className="relative h-[272px]">
           <Image
-            src="/placeholder.svg"
+            src="/asset/Image Block.svg"
             alt="Modern interior with yellow chair"
             fill
             className="object-cover"
@@ -50,7 +50,7 @@ export default function AboutPage() {
       <div className="grid md:grid-cols-2 gap-6 mt-6">
         <div className="relative aspect-square">
           <Image
-            src="/placeholder.svg"
+            src="/asset/about.svg"
             alt="Minimalist interior design"
             fill
             className="object-cover"
@@ -67,8 +67,8 @@ export default function AboutPage() {
           <p className="text-gray-600 mb-8">
             The result is a collection of beautifully crafted pieces that stand all the features and design to be. Creative furniture become the hottest for the London interior design community.
           </p>
-          <Link 
-            href="/contact" 
+          <Link
+            href="/contact"
             className="text-sm text-gray-600 hover:text-gray-900"
           >
             Get in touch
