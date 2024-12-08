@@ -6,7 +6,9 @@
 
 import { About } from "./component/about"
 import { Features } from "./component/features"
+import { Header } from "./component/header"
 import { Hero } from "./component/hero"
+import Navbar from "./component/navbar"
 import { Newsletter } from "./component/newsLetter"
 import { ProductsSection } from "./component/product-section"
 
@@ -83,6 +85,8 @@ const popularProducts = [
 export default function Home() {
   return (
     <>
+    <Navbar/>
+    <Header/>
       <Hero />
       <Features />
       <ProductsSection title="New ceramics" products={newProducts} />
