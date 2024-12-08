@@ -20,8 +20,8 @@ export default function Navbar() {
 
   {/* Right: Cart and User Buttons */}
   <div className="flex items-center space-x-4">
-    <button className="p-2 hover:bg-accent rounded-full">
-      <ShoppingCart className="h-5 w-5" />
+    <button className="p-2 hover:bg-accent rounded-full"><Link href={"/Shoppingcart"}><ShoppingCart className="h-5 w-5" />
+    </Link>
     </button>
     <button className="p-2 hover:bg-accent rounded-full">
       <User className="h-5 w-5" />
