@@ -26,6 +26,7 @@ export function Header() {
       <Link href="/cutlery" className="text-sm text-muted-foreground hover:text-primary">
         Cutlery
       </Link>
+    
     </div>
   </nav>
 </div>

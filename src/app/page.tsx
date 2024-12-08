@@ -85,8 +85,6 @@ const popularProducts = [
 export default function Home() {
   return (
     <>
-    <Navbar/>
-    <Header/>
       <Hero />
       <Features />
       <ProductsSection title="New ceramics" products={newProducts} />
