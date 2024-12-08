@@ -1,6 +1,7 @@
-'use client'
+'use client'; // Add this line
 
-import { useState } from "react"
+import React, { useState } from 'react';
+// ... rest of your code
 import Link from "next/link"
 import { ShoppingCart, User, Search, X } from 'lucide-react'
 
@@ -50,7 +51,7 @@ export function SiteHeader() {
                 <ShoppingCart className="h-5 w-5" />
                 <span className="sr-only">Cart</span>
               </Link>
-              <Link href="/account" className="hover:text-gray-600">
+              <Link href="/auth" className="hover:text-gray-600">
                 <User className="h-5 w-5" />
                 <span className="sr-only">Account</span>
               </Link>
