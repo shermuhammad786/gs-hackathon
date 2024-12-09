@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 // ... rest of your code
 import Link from "next/link"
 import { ShoppingCart, User, Search, X } from 'lucide-react'
+import { useRouter } from 'next/navigation';
 
 export function SiteHeader() {
   const [showBanner, setShowBanner] = useState(true)
@@ -16,7 +17,10 @@ export function SiteHeader() {
       setCartItems(products)
     }
   })
-
+  const cartLink = () => {
+    const router = useRouter()
+    router.push("/addtocart")
+  }
   return (
     <header>
       {showBanner && (
@@ -43,7 +47,7 @@ export function SiteHeader() {
 
             <div className="flex items-center space-x-6">
               <Link href="/about" className="text-sm text-gray-600 hover:text-gray-900">
-                About us 
+                About us
               </Link>
               <Link href="/contact" className="text-sm text-gray-600 hover:text-gray-900">
                 Contact
@@ -55,7 +59,7 @@ export function SiteHeader() {
                 <Search className="h-5 w-5" />
                 <span className="sr-only">Search</span>
               </button>
-              <Link href="/shoppingcart" className="hover:text-gray-600 relative">
+              <Link onClick={cartLink} href="/addtocart" className="hover:text-gray-600 relative">
                 {cartItems && cartItems.length > 0 && <h1 className='absolute bottom-5 bg-red-500 p-[4px] w-[20px] h-[20px] text-[10px] flex justify-center items-center rounded-full right-[-5px]'>
                   {cartItems.length}
                 </h1>}
