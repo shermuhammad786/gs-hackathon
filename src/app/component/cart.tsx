@@ -35,7 +35,7 @@ export default function CartPage() {
 
           {cartProduct && cartProduct.map((prod: any) => (
 
-            <TableRow>
+            <TableRow key={prod.id}>
               <TableCell>
 
                 <div className="flex gap-4">
