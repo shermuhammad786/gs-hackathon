@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 export function SiteHeader() {
   const [showBanner, setShowBanner] = useState(true)
   const [cartItems, setCartItems] = useState([]);
+  const router = useRouter()
   useEffect(() => {
 
     const products = JSON.parse(localStorage.getItem('cartItems') as any);
@@ -18,7 +19,6 @@ export function SiteHeader() {
     }
   })
   const cartLink = () => {
-    const router = useRouter()
     router.push("/addtocart")
   }
   return (
