@@ -41,10 +41,9 @@ export function SiteHeader() {
               Avion
             </Link>
 
-
             <div className="flex items-center space-x-6">
               <Link href="/about" className="text-sm text-gray-600 hover:text-gray-900">
-                About us
+                About us 
               </Link>
               <Link href="/contact" className="text-sm text-gray-600 hover:text-gray-900">
                 Contact
