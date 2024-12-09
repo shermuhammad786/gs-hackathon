@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 interface ProductCardProps {
+    id: number,
     name: string
     price: number
     image: string
@@ -10,10 +11,10 @@ interface ProductCardProps {
     height: string
 }
 
-export function ProductCard({ name, price, image, slug, width, height }: ProductCardProps) {
+export function ProductCard({ id, name, price, image, slug, width, height }: ProductCardProps) {
     console.log('width: ', width);
     return (
-        <Link href={`/products/${slug}`} className="group">
+        <Link href={`/product/${id}`} className="group">
             <div className={`relative aspect-square mb-4 h-[${height}] w-[${width}]`}>
                 <Image
                     src={image}

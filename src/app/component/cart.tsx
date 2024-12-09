@@ -1,3 +1,4 @@
+'use client';
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -10,8 +11,15 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Input } from "@/components/ui/input"
+import { useEffect, useState } from "react"
 
 export default function CartPage() {
+  const [cartProduct, setCartProduct] = useState([] as any);
+  useEffect(() => {
+
+    const product = JSON.parse(localStorage.getItem('cartItems') as any)
+    setCartProduct(product)
+  }, [])
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
       <h1 className="text-2xl font-medium mb-8">Your shopping cart</h1>
@@ -24,36 +32,42 @@ export default function CartPage() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow>
-            <TableCell>
-              <div className="flex gap-4">
-                <Image
-                  src="/placeholder.svg"
-                  alt="Greystone vase"
-                  width={80}
-                  height={80}
-                  className="rounded-lg object-cover"
-                />
-                <div>
-                  <h3 className="font-medium">Greystone vase</h3>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    A timeless ceramic vase with a muted grey glaze
-                  </p>
-                  <p className="text-sm text-muted-foreground mt-1">£85</p>
+
+          {cartProduct && cartProduct.map((prod: any) => (
+
+            <TableRow>
+              <TableCell>
+
+                <div className="flex gap-4">
+                  <Image
+                    src={prod.image}
+                    alt={prod.name}
+                    width={80}
+                    height={80}
+                    className="rounded-lg object-cover"
+                  />
+                  <div>
+                    <h3 className="font-medium">{prod.name}</h3>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {prod.description}
+                    </p>
+                    <p className="text-sm text-muted-foreground mt-1">£{prod.price}</p>
+                  </div>
                 </div>
-              </div>
-            </TableCell>
-            <TableCell>
-              <Input
-                type="number"
-                min="1"
-                defaultValue="1"
-                className="w-20"
-              />
-            </TableCell>
-            <TableCell className="text-right">£85</TableCell>
-          </TableRow>
-          <TableRow>
+              </TableCell>
+              <TableCell>
+                <Input
+                  type="number"
+                  min="1"
+                  defaultValue={prod.quantity}
+                  className="w-20"
+                />
+              </TableCell>
+              <TableCell className="text-right">£{prod.price * prod.quantity}</TableCell>
+            </TableRow>
+          ))}
+
+          {/* <TableRow>
             <TableCell>
               <div className="flex gap-4">
                 <Image
@@ -81,7 +95,8 @@ export default function CartPage() {
               />
             </TableCell>
             <TableCell className="text-right">£125</TableCell>
-          </TableRow>
+          </TableRow> */}
+
         </TableBody>
       </Table>
       <div className="mt-8 space-y-4">

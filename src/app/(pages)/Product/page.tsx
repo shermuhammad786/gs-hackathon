@@ -212,7 +212,7 @@ export default function ProductsPage() {
         {products.map((product) => (
           <Link
             key={product.id}
-            href={`/products/${product.id}`}
+            href={`/product/${product.id}`}
             className="group"
           >
             <div className="aspect-square overflow-hidden bg-gray-100 rounded-lg">

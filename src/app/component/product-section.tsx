@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { ProductCard } from "./product-card"
 
 interface Product {
+    id: number,
     name: string
     price: number
     image: string

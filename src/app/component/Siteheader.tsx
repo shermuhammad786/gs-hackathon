@@ -1,12 +1,21 @@
 'use client'; // Add this line
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // ... rest of your code
 import Link from "next/link"
 import { ShoppingCart, User, Search, X } from 'lucide-react'
 
 export function SiteHeader() {
   const [showBanner, setShowBanner] = useState(true)
+  const [cartItems, setCartItems] = useState([]);
+  useEffect(() => {
+
+    const products = JSON.parse(localStorage.getItem('cartItems') as any);
+    console.log('products: ', products);
+    if (products && products.length > 0) {
+      setCartItems(products)
+    }
+  })
 
   return (
     <header>
@@ -47,7 +56,10 @@ export function SiteHeader() {
                 <Search className="h-5 w-5" />
                 <span className="sr-only">Search</span>
               </button>
-              <Link href="/cart" className="hover:text-gray-600">
+              <Link href="/shoppingcart" className="hover:text-gray-600 relative">
+                {cartItems && cartItems.length > 0 && <h1 className='absolute bottom-5 bg-red-500 p-[4px] w-[20px] h-[20px] text-[10px] flex justify-center items-center rounded-full right-[-5px]'>
+                  {cartItems.length}
+                </h1>}
                 <ShoppingCart className="h-5 w-5" />
                 <span className="sr-only">Cart</span>
               </Link>

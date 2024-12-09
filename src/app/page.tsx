@@ -21,6 +21,7 @@ import { ProductsSection } from "./component/product-section"
 
 const newProducts = [
   {
+    id:1,
     name: "The Dandy chair",
     price: 250,
     image: "/asset/Hero Blocks.svg",
@@ -29,6 +30,7 @@ const newProducts = [
     height: "375px"
   },
   {
+    id:2,
     name: "Rustic Vase Set",
     price: 155,
     image: "/asset/Parent.svg",
@@ -37,6 +39,7 @@ const newProducts = [
     height: "375px"
   },
   {
+    id:3,
     name: "The Silky Vase",
     price: 125,
     image: "/asset/Photo.svg",
@@ -45,6 +48,7 @@ const newProducts = [
     height: "375px"
   },
   {
+    id:3,
     name: "The Lucy Lamp",
     price: 399,
     image: "/asset/LuckyLamp.svg",
@@ -56,6 +60,7 @@ const newProducts = [
 
 const popularProducts = [
   {
+    id:1,
     name: "The Poplar suede sofa",
     price: 980,
     image: "/asset/Poplar suede sofa.svg",
@@ -64,6 +69,7 @@ const popularProducts = [
     height: "375px"
   },
   {
+    id:2,
     name: "The Dandy chair",
     price: 250,
     image: "/asset/Hero Blocks.svg",
@@ -72,6 +78,7 @@ const popularProducts = [
     height: "375px"
   },
   {
+    id:3,
     name: "The Dandy chair",
     price: 250,
     image: "/asset/Dandy chair.svg",
