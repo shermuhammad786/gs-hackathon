@@ -35,23 +35,23 @@ export default function CartPage() {
 
           {cartProduct && cartProduct.map((prod: any) => (
 
-            <TableRow key={prod.id}>
+            <TableRow key={prod?.id}>
               <TableCell>
 
                 <div className="flex gap-4">
                   <Image
-                    src={prod.image}
-                    alt={prod.name}
+                    src={prod?.image}
+                    alt={prod?.name}
                     width={80}
                     height={80}
                     className="rounded-lg object-cover"
                   />
                   <div>
-                    <h3 className="font-medium">{prod.name}</h3>
+                    <h3 className="font-medium">{prod?.name}</h3>
                     <p className="text-sm text-muted-foreground mt-1">
-                      {prod.description}
+                      {prod?.description}
                     </p>
-                    <p className="text-sm text-muted-foreground mt-1">£{prod.price}</p>
+                    <p className="text-sm text-muted-foreground mt-1">£{prod?.price}</p>
                   </div>
                 </div>
               </TableCell>
@@ -59,11 +59,11 @@ export default function CartPage() {
                 <Input
                   type="number"
                   min="1"
-                  defaultValue={prod.quantity}
+                  defaultValue={prod?.quantity}
                   className="w-20"
                 />
               </TableCell>
-              <TableCell className="text-right">£{prod.price * prod.quantity}</TableCell>
+              <TableCell className="text-right">£{prod?.price * prod?.quantity}</TableCell>
             </TableRow>
           ))}
 
