@@ -14,7 +14,7 @@ interface ProductCardProps {
 export function ProductCard({ id, name, price, image, slug, width, height }: ProductCardProps) {
     console.log('width: ', width);
     return (
-        <Link href={`/product/${id}`} className="group">
+        <Link href={`#`} className="group">
             <div className={`relative aspect-square mb-4 h-[${height}] w-[${width}]`}>
                 <Image
                     src={image}
