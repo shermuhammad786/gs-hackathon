@@ -1,15 +1,20 @@
+'use client'
 // import { Button } from "@/components/ui/button";
 // import { faHeart } from "@fortawesome/free-regular-svg-icons";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import Image from "next/image";
 // import HomePage from "./(pages)/home/home";
 
+import { useEffect } from "react"
 import { About } from "./component/about"
 import { Features } from "./component/features"
 import { Header } from "./component/header"
 import { Hero } from "./component/hero"
 import { Newsletter } from "./component/newsLetter"
 import { ProductsSection } from "./component/product-section"
+import axios from "axios"
+import { client } from "@/sanity/lib/client"
+// import { syncProductsWithSanity } from "./sendDataToSanity"
 
 // export default function Home() {
 //   return (
@@ -18,6 +23,65 @@ import { ProductsSection } from "./component/product-section"
 //     </div>
 //   );
 // }
+
+
+// import { createClient } from 'next-sanity'
+
+// import { apiVersion, dataset, projectId } from '../env'
+
+// export const client = createClient({
+//   projectId,
+//   dataset,
+//   apiVersion,
+//   useCdn: false, // Set to false if statically generating pages, using ISR or tag-based revalidation
+//   token: 'sk5q7S29wzA6ee7EgUsMwuawQ6GwbXmmjzeosKlBXJKyFJQEz42gvUX9S2CPQxCYwbGnlxeBb6jWcRhYpRQrTcaGZiUlzUDLbin3h7D1aOpQshKqg5t0U6cbCgQ3MEtkOFpw4wb4b2LRv0FUfMNiHJWFC8qaPUEQe6SaATXmqsRVdOfwQUFi'
+// })
+
+// export const Products = {
+//   name: 'product',
+//   type: 'document',
+//   title: 'Product',
+//   fields: [
+//     { name: 'name', type: 'string', title: 'Name' },
+//     { name: 'description', type: 'text', title: 'Description' },
+//     { name: 'image', type: 'url', title: 'Image' },
+//     { name: 'id', type: 'string', title: 'ID' },
+//     {
+//       name: 'features',
+//       type: 'array',
+//       title: 'Features',
+//       of: [{ type: 'string' }],
+//     },
+//     {
+//       name: 'dimensions',
+//       type: 'object',
+//       title: 'Dimensions',
+//       fields: [
+//         { name: 'width', type: 'string', title: 'Width' },
+//         { name: 'height', type: 'string', title: 'Height' },
+//         { name: 'depth', type: 'string', title: 'Depth' },
+//       ],
+//     },
+//     {
+//       name: 'category',
+//       type: 'object',
+//       title: 'Category',
+//       fields: [
+//         { name: 'name', type: 'string', title: 'Name' },
+//         { name: 'slug', type: 'string', title: 'Slug' },
+//       ],
+//     },
+//     { name: 'price', type: 'number', title: 'Price' },
+//     {
+//       name: 'tags',
+//       type: 'array',
+//       title: 'Tags',
+//       of: [{ type: 'string' }],
+//     },
+//   ],
+// };
+
+
 
 const newProducts = [
   {
@@ -89,8 +153,30 @@ const popularProducts = [
 ]
 
 export default function Home() {
-  const query = `*[_type == "post"]{title, slug, body}`;
+  const query = `*[_type == "post"]`;
   console.log('query: ', query);
+  // useEffect(() => {
+  //   const fetchAndSendProducts = async () => {
+  //     try {
+  //       const response = await axios.get('https://hackathon-apis.vercel.app/api/products');
+  //       const products = response.data;
+  //       console.log("Fetched products: ", products);
+
+  //       // Send each product to Sanity
+  //       for (const product of products) {
+  //         await client.create({
+  //           _type: "product", // Make sure this matches your Sanity schema type
+  //           ...product
+  //         });
+  //       }
+  //       console.log("Products sent to Sanity successfully!");
+  //     } catch (error) {
+  //       console.error("Error during product sync:", error);
+  //     }
+  //   };
+
+  //   fetchAndSendProducts();
+  // }, []);
   return (
     <>
 
