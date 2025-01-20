@@ -1,34 +1,43 @@
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
+import { Copy } from "lucide-react"
 
-export function AlertDialogDemo({ title, description, name }: any) {
+import { Button } from "@/components/ui/button"
+import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+
+export function DialogCloseButton({ click, title, description, name }: any) {
     return (
-        <AlertDialog>
-            <AlertDialogTrigger asChild>
+        <Dialog>
+            <DialogTrigger asChild>
                 <Button className="w-full bg-black text-white border-none" variant="outline">{name}</Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-                <AlertDialogHeader>
-                    <AlertDialogTitle>{title}</AlertDialogTitle>
-                    <AlertDialogDescription>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                    <DialogTitle>{title}</DialogTitle>
+                    <DialogDescription>
                         {description}
-                    </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction>OK</AlertDialogAction>
-                </AlertDialogFooter>
-            </AlertDialogContent>
-        </AlertDialog>
+                    </DialogDescription>
+                </DialogHeader>
+                <DialogFooter className="sm:justify-start gap-4">
+                    <DialogClose asChild>
+                        <Button onClick={click} type="button" className="w-full bg-black text-white border-none" variant="outline">
+                            OK
+                        </Button>
+                    </DialogClose>
+                    <DialogClose asChild>
+                        <Button type="button" className="w-full bg-black text-white border-none" variant="outline">
+                            Cancel
+                        </Button>
+                    </DialogClose>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
     )
 }

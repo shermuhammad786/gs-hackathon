@@ -2,11 +2,14 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog"
-import { AlertDialogDemo } from "./alert"
+import { DialogCloseButton } from "./alert"
 import { useState } from "react"
+import { useAppDispatch, useAppSelector } from "../hooks/redux"
+import { RootState } from "@/redux/store"
+import { addtoCartProduct } from "@/redux/addToCart.slice"
 
 interface ProductInfoProps {
-    id: number
+    _id: number
     name: string
     price: number
     description: string
@@ -17,26 +20,24 @@ interface ProductInfoProps {
 }
 
 
-export function ProductInfo({ id, name, price, description, image, height, width }: ProductInfoProps) {
+export function ProductInfo({ _id, name, price, description, image, height, width }: ProductInfoProps) {
     const [quantity, setQuantity] = useState(1)
-    const addtoCart = () => {
-        const product = {
-            id, name, price, description, quantity, image
+    const dispatch = useAppDispatch()
+    let addtoCardData = useAppSelector((state: RootState) => state.addToCart.value)
+    const addtoCart = async () => {
+        let product = {
+            _id, name, price, description, quantity, image
         }
-        // console.log('product: ', product);
-        const localStorageProducts = JSON.parse(localStorage.getItem('cartItems') as any)
-        console.log('localStorageProducts: ', localStorageProducts);
-        if (localStorageProducts) {
-            const product = localStorageProducts.find((item: any) => item._id === id);
-            // console.log('product: ', product);
-            if (product) {
-                return product.quantity = quantity
-            }
-            return localStorage.setItem('cartItems', JSON.stringify([...localStorageProducts, product]))
+        const findProduct = await addtoCardData.find((item: any) => item._id === _id)
+        if (findProduct) {
+            product.quantity = quantity
+            var removeProduct = await addtoCardData.filter((item: any) => item._id != _id)
+            await dispatch(addtoCartProduct([...removeProduct, product]))
+            return (
+                <DialogCloseButton title="Product is Already Added to card" description="" name="" />
+            )
         }
-        if (!localStorageProducts) {
-            localStorage.setItem('cartItems', JSON.stringify([product]))
-        }
+        await dispatch(addtoCartProduct([...addtoCardData, product]))
     }
     return (
         <div className="space-y-8">
@@ -75,12 +76,17 @@ export function ProductInfo({ id, name, price, description, image, height, width
 
             <div className="flex items-center gap-4">
                 <div className="w-24">
-                    <Input onChange={(e) => setQuantity(parseInt(e.target.value))} type="number" defaultValue="1" min="1" />
-                </div>
-                <Button onClick={addtoCart} className="flex-1 p-0 m-0">
-                    <AlertDialogDemo title="Product added to cart" description="You can find it in your cart" name="Add to cart" />
-                </Button>
+                    <Input onChange={(e) => {
+                        console.log(e.target.value);
 
+                        setQuantity(parseInt(e.target.value))
+                        console.log(quantity);
+
+                    }} type="number" defaultValue="1" min="1" />
+                </div>
+                <Button className="w-full bg-black text-white border-none" variant="outline">
+                    <DialogCloseButton click={addtoCart} title="Are you sure, You want add to cart this product" description="Click OK to add to cart this product" name="Add to Cart" />
+                </Button>
             </div>
         </div>
     )

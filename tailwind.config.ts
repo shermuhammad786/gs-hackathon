@@ -61,6 +61,14 @@ const config: Config = {
 				md: '2fr 1fr',
 				sm: '1fr'
 			},
+			objectPosition: {
+				'center-bottom': 'center bottom',
+			},
+			screens:{
+				'tablet': '640px',
+				'extraSmall':'260px'
+			}
+
 		}
 	},
 	plugins: [require("tailwindcss-animate")],

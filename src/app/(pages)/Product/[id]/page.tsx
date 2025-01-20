@@ -15,9 +15,7 @@ const ProductPage = () => {
     const { id } = useParams()
     console.log('id: ', id);
     const [products, setProducts] = useState() as any
-    const dispatch = useAppDispatch();
     const fetchProductData = async () => {
-
         const queryNewProducts = groq`*[_type == "product" && _id == $id]`;
         const data = await client.fetch(queryNewProducts, { id: id })
         console.log('data : product ', data[0].image);

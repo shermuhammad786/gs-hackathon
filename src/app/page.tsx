@@ -20,6 +20,7 @@ import { getProductData } from "@/redux/slice"
 import { RootState } from "@/redux/store"
 import { getNewProductData } from "@/redux/newProduct.slice"
 import { PopularProductsSection } from "./component/popular-product-section"
+
 // import { syncProductsWithSanity } from "./sendDataToSanity"
 
 // export default function Home() {
@@ -215,6 +216,7 @@ export default function Home() {
       <PopularProductsSection title="Our popular products" products={popularProducts} />
       <Newsletter />
       <About />
+
     </>
   )
 }

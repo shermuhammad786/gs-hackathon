@@ -1,223 +1,190 @@
-'use client'
-import Image from "next/image"
-import Link from "next/link"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+'use client';
+import Image from "next/image";
+import Link from "next/link";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Button } from "@/components/ui/button"
-import { ChevronDown } from 'lucide-react'
-import groq from "groq"
-import { useAppDispatch } from "@/app/hooks/redux"
-import { client } from "@/sanity/lib/client"
-import { getAllProductData } from "@/redux/allProducts.slice"
-import { useEffect, useState } from "react"
-
-// const products = [
-//   {
-//     id: 1,
-//     name: "The Dandy chair",
-//     price: 250,
-//     image: "/asset/Hero Blocks.svg",
-//     slug: "the-dandy-chair",
-//     width: "305px",
-//     height: "375px"
-//   },
-//   {
-//     id: 2,
-//     name: "Rustic Vase Set",
-//     price: 155,
-//     image: "/asset/Parent.svg",
-//     slug: "rustic-vase-set",
-//     width: "305px",
-//     height: "375px"
-//   },
-//   {
-//     id: 3,
-//     name: "The Silky Vase",
-//     price: 125,
-//     image: "/asset/Photo.svg",
-//     slug: "the-silky-vase",
-//     width: "305px",
-//     height: "375px"
-//   },
-//   {
-//     id: 4,
-//     name: "The Lucy Lamp",
-//     price: 399,
-//     image: "/asset/LuckyLamp.svg",
-//     slug: "the-lucy-lamp",
-//     width: "305px",
-//     height: "375px"
-//   },
-//   {
-//     id: 5,
-//     name: "The Dandy chair",
-//     price: 250,
-//     image: "/asset/Hero Blocks.svg",
-//     slug: "the-dandy-chair",
-//     width: "305px",
-//     height: "375px"
-//   },
-//   {
-//     id: 6,
-//     name: "Rustic Vase Set",
-//     price: 155,
-//     image: "/asset/Parent.svg",
-//     slug: "rustic-vase-set",
-//     width: "305px",
-//     height: "375px"
-//   },
-//   {
-//     id: 7,
-//     name: "The Silky Vase",
-//     price: 125,
-//     image: "/asset/Photo.svg",
-//     slug: "the-silky-vase",
-//     width: "305px",
-//     height: "375px"
-//   },
-//   {
-//     id: 8,
-//     name: "The Lucy Lamp",
-//     price: 399,
-//     image: "/asset/LuckyLamp.svg",
-//     slug: "the-lucy-lamp",
-//     width: "305px",
-//     height: "375px"
-//   },
-//   {
-//     id: 9,
-//     name: "The Dandy chair",
-//     price: 250,
-//     image: "/asset/Hero Blocks.svg",
-//     slug: "the-dandy-chair",
-//     width: "305px",
-//     height: "375px"
-//   },
-//   {
-//     id: 10,
-//     name: "Rustic Vase Set",
-//     price: 155,
-//     image: "/asset/Parent.svg",
-//     slug: "rustic-vase-set",
-//     width: "305px",
-//     height: "375px"
-//   },
-//   {
-//     id: 11,
-//     name: "The Silky Vase",
-//     price: 125,
-//     image: "/asset/Photo.svg",
-//     slug: "the-silky-vase",
-//     width: "305px",
-//     height: "375px"
-//   },
-//   {
-//     id: 12,
-//     name: "The Lucy Lamp",
-//     price: 399,
-//     image: "/asset/LuckyLamp.svg",
-//     slug: "the-lucy-lamp",
-//     width: "305px",
-//     height: "375px"
-//   }
-// ]
-
-
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ChevronDown } from "lucide-react";
+import groq from "groq";
+import { useAppDispatch } from "@/app/hooks/redux";
+import { client } from "@/sanity/lib/client";
+import { getAllProductData } from "@/redux/allProducts.slice";
+import { useEffect, useState } from "react";
 
 export default function ProductsPage() {
-  const [products, setProducts] = useState() as any
+  const [products, setProducts] = useState([]); // All products from API
+  const [filteredProducts, setFilteredProducts] = useState([]); // Filtered products to display
+  const [filters, setFilters] = useState({
+    category: "All Categories",
+    type: "All Types",
+    price: "All Prices",
+    brand: "All Brands",
+    tags: "All Tags",
+  });
+
   const dispatch = useAppDispatch();
+
+  // Fetch product data from Sanity CMS
   const fetchProductData = async () => {
-
     const queryNewProducts = groq`*[_type == "product"]`;
-    const data = await client.fetch(queryNewProducts)
-    console.log('data : product ', data);
-    setProducts(data)
-    // save the products data in redux
-    dispatch(getAllProductData(data));
-  }
-  useEffect(() => {
-    fetchProductData()
+    const data = await client.fetch(queryNewProducts);
+    setProducts(data);
+    setFilteredProducts(data); // Initialize filtered products with all products
+    dispatch(getAllProductData(data)); // Save the products data in Redux
+  };
 
-  }, [])
+  useEffect(() => {
+    fetchProductData();
+  }, []);
+
+  // Handle filtering logic
+  useEffect(() => {
+    const { category, type, price, brand, tags } = filters;
+
+    const filtered = products.filter((product: any) => {
+      // Filter by category
+      const matchCategory =
+        category === "All Categories" || product?.category?.name === category;
+
+      // Filter by type
+      const matchType = type === "All Types" || product?.type === type;
+
+      // Filter by price
+      const matchPrice =
+        price === "All Prices" ||
+        (price === "Under £50" && product.price < 50) ||
+        (price === "£50 - £100" && product.price >= 50 && product.price <= 100) ||
+        (price === "Over £100" && product.price > 100);
+
+      // Filter by brand
+      const matchBrand = brand === "All Brands" || product?.brand === brand;
+
+      // Filter by tags
+      const matchTags =
+        tags === "All Tags" ||
+        (product?.tags && product.tags.includes(tags));
+
+      return matchCategory && matchType && matchPrice && matchBrand && matchTags;
+    });
+
+    setFilteredProducts(filtered);
+  }, [filters, products]);
+
+  // Update filter state
+  const updateFilter = (key: string, value: string) => {
+    setFilters((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-medium mb-8">All products</h1>
+      <h1 className="text-2xl font-medium mb-8">All Products</h1>
 
+      {/* Filters Section */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+        {/* Dropdown filters */}
         <div className="flex flex-wrap items-center gap-2">
+          {/* Category Filter */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm">
-                Category
-                <ChevronDown className="ml-2 h-4 w-4" />
+                {filters.category} <ChevronDown className="ml-2 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem>All Categories</DropdownMenuItem>
-              <DropdownMenuItem>Chairs</DropdownMenuItem>
-              <DropdownMenuItem>Vases</DropdownMenuItem>
-              <DropdownMenuItem>Lighting</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => updateFilter("category", "All Categories")}>
+                All Categories
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => updateFilter("category", "Chairs")}>
+                Chairs
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => updateFilter("category", "Vases")}>
+                Vases
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => updateFilter("category", "Lighting")}>
+                Lighting
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
+          {/* Type Filter */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm">
-                Product type
-                <ChevronDown className="ml-2 h-4 w-4" />
+                {filters.type} <ChevronDown className="ml-2 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem>All Types</DropdownMenuItem>
-              <DropdownMenuItem>Furniture</DropdownMenuItem>
-              <DropdownMenuItem>Decor</DropdownMenuItem>
-              <DropdownMenuItem>Accessories</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => updateFilter("type", "All Types")}>
+                All Types
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => updateFilter("type", "Furniture")}>
+                Furniture
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => updateFilter("type", "Decor")}>
+                Decor
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => updateFilter("type", "Accessories")}>
+                Accessories
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
+          {/* Price Filter */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm">
-                Price
-                <ChevronDown className="ml-2 h-4 w-4" />
+                {filters.price} <ChevronDown className="ml-2 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem>All Prices</DropdownMenuItem>
-              <DropdownMenuItem>Under £50</DropdownMenuItem>
-              <DropdownMenuItem>£50 - £100</DropdownMenuItem>
-              <DropdownMenuItem>Over £100</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => updateFilter("price", "All Prices")}>
+                All Prices
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => updateFilter("price", "Under £50")}>
+                Under £50
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => updateFilter("price", "£50 - £100")}>
+                £50 - £100
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => updateFilter("price", "Over £100")}>
+                Over £100
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
+          {/* Brand Filter */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm">
-                Brand
-                <ChevronDown className="ml-2 h-4 w-4" />
+                {filters.brand} <ChevronDown className="ml-2 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem>All Brands</DropdownMenuItem>
-              <DropdownMenuItem>Brand A</DropdownMenuItem>
-              <DropdownMenuItem>Brand B</DropdownMenuItem>
-              <DropdownMenuItem>Brand C</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => updateFilter("brand", "All Brands")}>
+                All Brands
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => updateFilter("brand", "Brand A")}>
+                Brand A
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => updateFilter("brand", "Brand B")}>
+                Brand B
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => updateFilter("brand", "Brand C")}>
+                Brand C
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
 
+        {/* Sort Dropdown */}
         <Select defaultValue="featured">
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Sort by" />
@@ -231,30 +198,30 @@ export default function ProductsPage() {
         </Select>
       </div>
 
+      {/* Products Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products?.map((product: any) => (
-          <Link
-            key={product._id}
-            href={`/product/${product._id}`}
-            className="group"
-          >
-            <div className="aspect-square overflow-hidden bg-gray-100 rounded-lg">
-              <Image
-                src={product.image}
-                alt={product.name}
-                width={400}
-                height={400}
-                className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
-              />
-            </div>
-            <div className="mt-4 space-y-1">
-              <h3 className="text-sm font-medium text-gray-900">{product.name}</h3>
-              <p className="text-sm text-gray-500">{product.price}</p>
-            </div>
-          </Link>
-        ))}
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product: any) => (
+            <Link key={product._id} href={`/product/${product._id}`} className="group">
+              <div className="aspect-square overflow-hidden bg-gray-100 rounded-lg">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  width={400}
+                  height={400}
+                  className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="mt-4 space-y-1">
+                <h3 className="text-sm font-medium text-gray-900">{product.name}</h3>
+                <p className="text-sm text-gray-500">£{product.price.toFixed(2)}</p>
+              </div>
+            </Link>
+          ))
+        ) : (
+          <p className="text-center col-span-full text-gray-500">No products found.</p>
+        )}
       </div>
     </div>
-  )
+  );
 }
-

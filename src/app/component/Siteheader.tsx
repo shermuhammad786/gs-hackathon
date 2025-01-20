@@ -5,19 +5,18 @@ import React, { useEffect, useState } from 'react';
 import Link from "next/link"
 import { ShoppingCart, User, Search, X, } from 'lucide-react'
 import { useRouter } from 'next/navigation';
+import { useAppSelector } from '../hooks/redux';
+import { RootState } from '@/redux/store';
 
 export function SiteHeader() {
   const [showBanner, setShowBanner] = useState(true)
   const [cartItems, setCartItems] = useState([]);
   const router = useRouter()
+  const carts = useAppSelector((state: RootState) => state.addToCart.value);
   useEffect(() => {
-
-    const products = JSON.parse(localStorage.getItem('cartItems') as any);
-    // console.log('products: ', products);
-    if (products && products.length > 0) {
-      setCartItems(products)
-    }
-  }, [])
+    console.log('carts: ', carts);
+    setCartItems(carts)
+  }, [carts])
   const cartLink = () => {
     router.push("/addtocart")
   }
