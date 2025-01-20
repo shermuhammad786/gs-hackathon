@@ -1,3 +1,4 @@
+'use client'
 import Image from "next/image"
 import Link from "next/link"
 import {
@@ -15,119 +16,141 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import { ChevronDown } from 'lucide-react'
+import groq from "groq"
+import { useAppDispatch } from "@/app/hooks/redux"
+import { client } from "@/sanity/lib/client"
+import { getAllProductData } from "@/redux/allProducts.slice"
+import { useEffect, useState } from "react"
 
-const products = [
-  {
-    id: 1,
-    name: "The Dandy chair",
-    price: 250,
-    image: "/asset/Hero Blocks.svg",
-    slug: "the-dandy-chair",
-    width: "305px",
-    height: "375px"
-  },
-  {
-    id: 2,
-    name: "Rustic Vase Set",
-    price: 155,
-    image: "/asset/Parent.svg",
-    slug: "rustic-vase-set",
-    width: "305px",
-    height: "375px"
-  },
-  {
-    id: 3,
-    name: "The Silky Vase",
-    price: 125,
-    image: "/asset/Photo.svg",
-    slug: "the-silky-vase",
-    width: "305px",
-    height: "375px"
-  },
-  {
-    id: 4,
-    name: "The Lucy Lamp",
-    price: 399,
-    image: "/asset/LuckyLamp.svg",
-    slug: "the-lucy-lamp",
-    width: "305px",
-    height: "375px"
-  },
-  {
-    id: 5,
-    name: "The Dandy chair",
-    price: 250,
-    image: "/asset/Hero Blocks.svg",
-    slug: "the-dandy-chair",
-    width: "305px",
-    height: "375px"
-  },
-  {
-    id: 6,
-    name: "Rustic Vase Set",
-    price: 155,
-    image: "/asset/Parent.svg",
-    slug: "rustic-vase-set",
-    width: "305px",
-    height: "375px"
-  },
-  {
-    id: 7,
-    name: "The Silky Vase",
-    price: 125,
-    image: "/asset/Photo.svg",
-    slug: "the-silky-vase",
-    width: "305px",
-    height: "375px"
-  },
-  {
-    id: 8,
-    name: "The Lucy Lamp",
-    price: 399,
-    image: "/asset/LuckyLamp.svg",
-    slug: "the-lucy-lamp",
-    width: "305px",
-    height: "375px"
-  },
-  {
-    id: 9,
-    name: "The Dandy chair",
-    price: 250,
-    image: "/asset/Hero Blocks.svg",
-    slug: "the-dandy-chair",
-    width: "305px",
-    height: "375px"
-  },
-  {
-    id: 10,
-    name: "Rustic Vase Set",
-    price: 155,
-    image: "/asset/Parent.svg",
-    slug: "rustic-vase-set",
-    width: "305px",
-    height: "375px"
-  },
-  {
-    id: 11,
-    name: "The Silky Vase",
-    price: 125,
-    image: "/asset/Photo.svg",
-    slug: "the-silky-vase",
-    width: "305px",
-    height: "375px"
-  },
-  {
-    id: 12,
-    name: "The Lucy Lamp",
-    price: 399,
-    image: "/asset/LuckyLamp.svg",
-    slug: "the-lucy-lamp",
-    width: "305px",
-    height: "375px"
-  }
-]
+// const products = [
+//   {
+//     id: 1,
+//     name: "The Dandy chair",
+//     price: 250,
+//     image: "/asset/Hero Blocks.svg",
+//     slug: "the-dandy-chair",
+//     width: "305px",
+//     height: "375px"
+//   },
+//   {
+//     id: 2,
+//     name: "Rustic Vase Set",
+//     price: 155,
+//     image: "/asset/Parent.svg",
+//     slug: "rustic-vase-set",
+//     width: "305px",
+//     height: "375px"
+//   },
+//   {
+//     id: 3,
+//     name: "The Silky Vase",
+//     price: 125,
+//     image: "/asset/Photo.svg",
+//     slug: "the-silky-vase",
+//     width: "305px",
+//     height: "375px"
+//   },
+//   {
+//     id: 4,
+//     name: "The Lucy Lamp",
+//     price: 399,
+//     image: "/asset/LuckyLamp.svg",
+//     slug: "the-lucy-lamp",
+//     width: "305px",
+//     height: "375px"
+//   },
+//   {
+//     id: 5,
+//     name: "The Dandy chair",
+//     price: 250,
+//     image: "/asset/Hero Blocks.svg",
+//     slug: "the-dandy-chair",
+//     width: "305px",
+//     height: "375px"
+//   },
+//   {
+//     id: 6,
+//     name: "Rustic Vase Set",
+//     price: 155,
+//     image: "/asset/Parent.svg",
+//     slug: "rustic-vase-set",
+//     width: "305px",
+//     height: "375px"
+//   },
+//   {
+//     id: 7,
+//     name: "The Silky Vase",
+//     price: 125,
+//     image: "/asset/Photo.svg",
+//     slug: "the-silky-vase",
+//     width: "305px",
+//     height: "375px"
+//   },
+//   {
+//     id: 8,
+//     name: "The Lucy Lamp",
+//     price: 399,
+//     image: "/asset/LuckyLamp.svg",
+//     slug: "the-lucy-lamp",
+//     width: "305px",
+//     height: "375px"
+//   },
+//   {
+//     id: 9,
+//     name: "The Dandy chair",
+//     price: 250,
+//     image: "/asset/Hero Blocks.svg",
+//     slug: "the-dandy-chair",
+//     width: "305px",
+//     height: "375px"
+//   },
+//   {
+//     id: 10,
+//     name: "Rustic Vase Set",
+//     price: 155,
+//     image: "/asset/Parent.svg",
+//     slug: "rustic-vase-set",
+//     width: "305px",
+//     height: "375px"
+//   },
+//   {
+//     id: 11,
+//     name: "The Silky Vase",
+//     price: 125,
+//     image: "/asset/Photo.svg",
+//     slug: "the-silky-vase",
+//     width: "305px",
+//     height: "375px"
+//   },
+//   {
+//     id: 12,
+//     name: "The Lucy Lamp",
+//     price: 399,
+//     image: "/asset/LuckyLamp.svg",
+//     slug: "the-lucy-lamp",
+//     width: "305px",
+//     height: "375px"
+//   }
+// ]
+
+
 
 export default function ProductsPage() {
+  const [products, setProducts] = useState() as any
+  const dispatch = useAppDispatch();
+  const fetchProductData = async () => {
+
+    const queryNewProducts = groq`*[_type == "product"]`;
+    const data = await client.fetch(queryNewProducts)
+    console.log('data : product ', data);
+    setProducts(data)
+    // save the products data in redux
+    dispatch(getAllProductData(data));
+  }
+  useEffect(() => {
+    fetchProductData()
+
+  }, [])
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-medium mb-8">All products</h1>
@@ -209,10 +232,10 @@ export default function ProductsPage() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products.map((product) => (
+        {products?.map((product: any) => (
           <Link
-            key={product.id}
-            href={`/product/${product.id}`}
+            key={product._id}
+            href={`/product/${product._id}`}
             className="group"
           >
             <div className="aspect-square overflow-hidden bg-gray-100 rounded-lg">

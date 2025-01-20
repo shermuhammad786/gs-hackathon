@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { ProductCard } from "./product-card"
+import { PopularProductCard } from "./popular-product-card"
 
 interface Product {
     _id: string,
@@ -19,14 +20,14 @@ interface ProductsSectionProps {
     viewAll?: boolean
 }
 
-export function ProductsSection({ title, products, viewAll = true }: ProductsSectionProps) {
+export function PopularProductsSection({ title, products, viewAll = true }: ProductsSectionProps) {
     return (
         <section className="py-16">
             <div className="container mx-auto px-4">
                 <h2 className="text-2xl font-semibold mb-8">{title}</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                <div className="grid grid-cols-sm md:grid-cols-md lg:grid-cols-lg gap-4">
                     {products.map((product) => (
-                        <ProductCard key={product._id} {...product} />
+                        <PopularProductCard key={product._id} {...product} />
                     ))}
                 </div>
                 {viewAll && (
@@ -35,7 +36,7 @@ export function ProductsSection({ title, products, viewAll = true }: ProductsSec
                     </div>
                 )}
             </div>
-        </section>
+        </section >
     )
 }
 

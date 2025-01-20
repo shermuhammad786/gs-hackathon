@@ -27,8 +27,8 @@ export function ProductInfo({ id, name, price, description, image, height, width
         const localStorageProducts = JSON.parse(localStorage.getItem('cartItems') as any)
         console.log('localStorageProducts: ', localStorageProducts);
         if (localStorageProducts) {
-            const product = localStorageProducts.find((item: any) => item.id === id);
-            console.log('product: ', product);
+            const product = localStorageProducts.find((item: any) => item._id === id);
+            // console.log('product: ', product);
             if (product) {
                 return product.quantity = quantity
             }

@@ -4,15 +4,15 @@ import Image from "next/image"
 
 export function Hero() {
     return (
-        <section className="px-12 py-12 grid md:grid-cols-2">
-            <div className="bg-[#2A254B] text-white p-8 md:p-16 flex flex-col justify-center">
-                <h1 className="text-4xl md:text-5xl font-bold mb-6">
+        <section className="px-4 md:px-12 lg:py-12 grid md:grid-cols-2">
+            <div className="bg-[#2A254B] text-white p-4 md:p-16 flex flex-col justify-center items-center">
+                <h1 className="text-2xl md:text-5xl font-bold mt-6 lg:mb-6 md:mb-6">
                     The furniture brand for the future, with timeless designs
                 </h1>
                 <p className="text-gray-300 mb-8 max-w-md">
                     A new era in eco-friendly furniture with Avion, the French luxury retail brand with nice fonts, tasteful colors and a beautiful way to display things digitally using modern web technologies.
                 </p>
-                <Link href={"/product"}><Button variant="secondary" size="lg" className="w-fit">
+                <Link className="w-full" href={"/product"}><Button variant="secondary" className="w-full">
                     View collection
                 </Button></Link>
             </div>

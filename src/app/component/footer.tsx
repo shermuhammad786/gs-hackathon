@@ -37,8 +37,8 @@ export function Footer() {
           </div>
           <div>
             <h3 className="font-medium mb-4 gird grid-cols-2">Join our mailing list</h3>
-            <form className="flex">
-              <Input type="email" placeholder="your@email.com" className="bg-white/10 border-white/20 w-100"/>
+            <form className="flex flex-col gap-2 md:flex-row lg:flex-row">
+              <Input type="email" placeholder="your@email.com" className="bg-white/10 border-white/20 w-100" />
               <Button variant="secondary">Sign up</Button>
             </form>
           </div>

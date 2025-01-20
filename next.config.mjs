@@ -6,6 +6,9 @@ const nextConfig = {
         // Customize Webpack config if needed
         return config;
     },
+    images: {
+        domains: ['cdn.sanity.io']
+    }
 };
 
 export default nextConfig;

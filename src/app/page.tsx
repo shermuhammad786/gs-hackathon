@@ -5,7 +5,7 @@
 // import Image from "next/image";
 // import HomePage from "./(pages)/home/home";
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { About } from "./component/about"
 import { Features } from "./component/features"
 import { Header } from "./component/header"
@@ -14,6 +14,12 @@ import { Newsletter } from "./component/newsLetter"
 import { ProductsSection } from "./component/product-section"
 import axios from "axios"
 import { client } from "@/sanity/lib/client"
+import groq from "groq"
+import { useAppDispatch, useAppSelector } from "./hooks/redux"
+import { getProductData } from "@/redux/slice"
+import { RootState } from "@/redux/store"
+import { getNewProductData } from "@/redux/newProduct.slice"
+import { PopularProductsSection } from "./component/popular-product-section"
 // import { syncProductsWithSanity } from "./sendDataToSanity"
 
 // export default function Home() {
@@ -83,78 +89,101 @@ import { client } from "@/sanity/lib/client"
 
 
 
-const newProducts = [
-  {
-    id: 1,
-    name: "The Dandy chair",
-    price: 250,
-    image: "/asset/Hero Blocks.svg",
-    slug: "the-dandy-chair",
-    width: "305px",
-    height: "375px"
-  },
-  {
-    id: 2,
-    name: "Rustic Vase Set",
-    price: 155,
-    image: "/asset/Parent.svg",
-    slug: "rustic-vase-set",
-    width: "305px",
-    height: "375px"
-  },
-  {
-    id: 3,
-    name: "The Silky Vase",
-    price: 125,
-    image: "/asset/Photo.svg",
-    slug: "the-silky-vase",
-    width: "305px",
-    height: "375px"
-  },
-  {
-    id: 3,
-    name: "The Lucy Lamp",
-    price: 399,
-    image: "/asset/LuckyLamp.svg",
-    slug: "the-lucy-lamp",
-    width: "305px",
-    height: "375px"
-  }
-]
+// const newProducts = [
+//   {
+//     id: 1,
+//     name: "The Dandy chair",
+//     price: 250,
+//     image: "/asset/Hero Blocks.svg",
+//     slug: "the-dandy-chair",
+//     width: "305px",
+//     height: "375px"
+//   },
+//   {
+//     id: 2,
+//     name: "Rustic Vase Set",
+//     price: 155,
+//     image: "/asset/Parent.svg",
+//     slug: "rustic-vase-set",
+//     width: "305px",
+//     height: "375px"
+//   },
+//   {
+//     id: 3,
+//     name: "The Silky Vase",
+//     price: 125,
+//     image: "/asset/Photo.svg",
+//     slug: "the-silky-vase",
+//     width: "305px",
+//     height: "375px"
+//   },
+//   {
+//     id: 3,
+//     name: "The Lucy Lamp",
+//     price: 399,
+//     image: "/asset/LuckyLamp.svg",
+//     slug: "the-lucy-lamp",
+//     width: "305px",
+//     height: "375px"
+//   }
+// ]
 
-const popularProducts = [
-  {
-    id: 1,
-    name: "The Poplar suede sofa",
-    price: 980,
-    image: "/asset/Poplar suede sofa.svg",
-    slug: "the-poplar-suede-sofa",
-    width: "630px",
-    height: "375px"
-  },
-  {
-    id: 2,
-    name: "The Dandy chair",
-    price: 250,
-    image: "/asset/Hero Blocks.svg",
-    slug: "the-dandy-chair",
-    width: "305px",
-    height: "375px"
-  },
-  {
-    id: 3,
-    name: "The Dandy chair",
-    price: 250,
-    image: "/asset/Dandy chair.svg",
-    slug: "the-dandy-chair-2",
-    width: "305px",
-    height: "375px"
-  }
-]
+// const popularProducts = [
+//   {
+//     id: 1,
+//     name: "The Poplar suede sofa",
+//     price: 980,
+//     image: "/asset/Poplar suede sofa.svg",
+//     slug: "the-poplar-suede-sofa",
+//     width: "630px",
+//     height: "375px"
+//   },
+//   {
+//     id: 2,
+//     name: "The Dandy chair",
+//     price: 250,
+//     image: "/asset/Hero Blocks.svg",
+//     slug: "the-dandy-chair",
+//     width: "305px",
+//     height: "375px"
+//   },
+//   {
+//     id: 3,
+//     name: "The Dandy chair",
+//     price: 250,
+//     image: "/asset/Dandy chair.svg",
+//     slug: "the-dandy-chair-2",
+//     width: "305px",
+//     height: "375px"
+//   }
+// ]
 
 export default function Home() {
-  const query = `*[_type == "post"]`;
-  console.log('query: ', query);
+
+  const [newProducts, setNewProducts] = useState([])
+  const [popularProducts, setPopularProducts] = useState([])
+  const dispatch = useAppDispatch();
+  const fetchProductData = async () => {
+    const queryNewProducts = groq`*[_type == "product" && "new ceramics" in tags]`;
+    const queryPopularProducts = groq`*[_type == "product" && "popular products" in tags]`;
+    const data = await client.fetch(queryNewProducts)
+    const dataPopularProducts = await client.fetch(queryPopularProducts)
+
+    console.log('dataPopularProducts: ', dataPopularProducts);
+    console.log('data: ', data);
+
+    // set pupular products in status
+    setNewProducts(data)
+    setPopularProducts(dataPopularProducts)
+
+    // save the products data in redux
+    dispatch(getNewProductData(data));
+    dispatch(getProductData(dataPopularProducts));
+  }
+  useEffect(() => {
+    fetchProductData()
+
+  }, [])
   // useEffect(() => {
   //   const fetchAndSendProducts = async () => {
   //     try {
@@ -183,7 +212,7 @@ export default function Home() {
       <Hero />
       <Features />
       <ProductsSection title="New ceramics" products={newProducts} />
-      <ProductsSection title="Our popular products" products={popularProducts} />
+      <PopularProductsSection title="Our popular products" products={popularProducts} />
       <Newsletter />
       <About />
     </>

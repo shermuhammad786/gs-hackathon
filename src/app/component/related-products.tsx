@@ -1,5 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
+import { useAppSelector } from "../hooks/redux"
+import { RootState } from "@/redux/store"
 
 interface Product {
     id: string
@@ -8,17 +10,16 @@ interface Product {
     image: string
 }
 
-// interface RelatedProductsProps {
-//     products: Product[]
-// }
 
-export function RelatedProducts({ products }: any) {
+
+export function RelatedProducts() {
+    const products = useAppSelector((state: RootState) => state.allProducts.value)
     return (
         <section className="py-12">
             <h2 className="text-2xl mb-8">You might also like</h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                {products.map((product: any) => (
-                    <Link key={product.id} href={`/product/${product.id}`}>
+                {products?.map((product: any) => (
+                    <Link key={product._id} href={`/product/${product._id}`}>
                         <div className="group">
                             <div className="relative aspect-square mb-4">
                                 <Image
