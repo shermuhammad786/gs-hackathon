@@ -35,14 +35,6 @@ export function RelatedProducts() {
                     </Link>
                 ))}
             </div>
-            <div className="text-center mt-8">
-                <Link
-                    href="/collection"
-                    className="text-sm border-b border-gray-900 pb-0.5"
-                >
-                    View collection
-                </Link>
-            </div>
         </section>
     )
 }

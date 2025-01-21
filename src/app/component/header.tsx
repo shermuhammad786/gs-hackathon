@@ -18,7 +18,7 @@ export function Header() {
             Chairs
           </Link>
           <Link href="/crockery" className="text-[15px] md:text-sm lg:text-sm text-white md:text-black lg:text-black text-muted-foreground hover:text-primary">
-            Crockery
+            Crockory
           </Link>
           <Link href="/tableware" className="text-[15px] md:text-sm lg:text-sm text-white md:text-black lg:text-black text-muted-foreground hover:text-primary">
             Tableware

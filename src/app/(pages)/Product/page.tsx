@@ -33,6 +33,7 @@ export default function ProductsPage() {
   const fetchProductData = async () => {
     const queryNewProducts = groq`*[_type == "product"]`;
     const data = await client.fetch(queryNewProducts);
+    console.log('data: ', data);
     setProducts(data);
     setFilteredProducts(data); // Initialize filtered products with all products
     dispatch(getAllProductData(data)); // Save the products data in Redux
@@ -59,7 +60,8 @@ export default function ProductsPage() {
         price === "All Prices" ||
         (price === "Under £50" && product.price < 50) ||
         (price === "£50 - £100" && product.price >= 50 && product.price <= 100) ||
-        (price === "Over £100" && product.price > 100);
+        (price === "£100 - £200" && product.price >= 100 && product.price <= 200) ||
+        (price === "Over £200" && product.price > 200);
 
       // Filter by brand
       const matchBrand = brand === "All Brands" || product?.brand === brand;
@@ -105,34 +107,23 @@ export default function ProductsPage() {
               <DropdownMenuItem onClick={() => updateFilter("category", "Chairs")}>
                 Chairs
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => updateFilter("category", "Vases")}>
-                Vases
+              <DropdownMenuItem onClick={() => updateFilter("category", "Plant Pots")}>
+                Plant pots
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => updateFilter("category", "Lighting")}>
-                Lighting
+              <DropdownMenuItem onClick={() => updateFilter("category", "Ceramics")}>
+                Ceramics
               </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          {/* Type Filter */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm">
-                {filters.type} <ChevronDown className="ml-2 h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => updateFilter("type", "All Types")}>
-                All Types
+              <DropdownMenuItem onClick={() => updateFilter("category", "Tables")}>
+                Tables
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => updateFilter("type", "Furniture")}>
-                Furniture
+              <DropdownMenuItem onClick={() => updateFilter("category", "Crockory")}>
+                Crockory
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => updateFilter("type", "Decor")}>
-                Decor
+              <DropdownMenuItem onClick={() => updateFilter("category", "Tableware")}>
+                Tableware
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => updateFilter("type", "Accessories")}>
-                Accessories
+              <DropdownMenuItem onClick={() => updateFilter("category", "Cutlery")}>
+                Cutlery
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -154,34 +145,15 @@ export default function ProductsPage() {
               <DropdownMenuItem onClick={() => updateFilter("price", "£50 - £100")}>
                 £50 - £100
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => updateFilter("price", "Over £100")}>
-                Over £100
+              <DropdownMenuItem onClick={() => updateFilter("price", "£100 - £200")}>
+                £100 - £200
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => updateFilter("price", "Over £200")}>
+                Over £200
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* Brand Filter */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm">
-                {filters.brand} <ChevronDown className="ml-2 h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => updateFilter("brand", "All Brands")}>
-                All Brands
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => updateFilter("brand", "Brand A")}>
-                Brand A
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => updateFilter("brand", "Brand B")}>
-                Brand B
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => updateFilter("brand", "Brand C")}>
-                Brand C
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
         </div>
 
         {/* Sort Dropdown */}

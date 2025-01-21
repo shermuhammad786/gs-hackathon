@@ -52,7 +52,7 @@ export default function CartPage() {
               <div>
                 <h3 className="font-medium text-lg">{prod.name}</h3>
                 <p className="text-sm text-gray-500 mt-1">{prod.description}</p>
-                <p className="text-sm text-gray-700 font-medium mt-1">£{prod.price.toFixed(2)}</p>
+                <p className="text-sm text-gray-700 font-medium mt-1">£{prod.price?.toFixed(2)}</p>
               </div>
 
               {/* Quantity */}
