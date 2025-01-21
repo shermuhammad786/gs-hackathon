@@ -45,7 +45,7 @@ export function SiteHeader() {
             </Link>
 
             <div className="flex items-start gap-2 text-white md:text-black lg:text-black  md:space-x-6 lg:space-x-6 flex-col-reverse lg:flex-row md:flex-row ">
-              <Link href="/about" className="text-[15px] md:text-sm lg:text-sm  text-white md:text-gray-600 lg:text-gray-600 hover:text-gray-900">
+              <Link href="/About" className="text-[15px] md:text-sm lg:text-sm  text-white md:text-gray-600 lg:text-gray-600 hover:text-gray-900">
                 About us
               </Link>
               <Link href="/contact" className="text-[15px] md:text-sm lg:text-sm  text-white md:text-gray-600 lg:text-gray-600 hover:text-gray-900">

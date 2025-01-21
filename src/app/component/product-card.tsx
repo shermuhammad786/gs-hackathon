@@ -19,7 +19,7 @@ export function ProductCard({ _id, name, price, image, dimensions }: ProductCard
     console.log('dimensions?.depth: ', dimensions?.depth);
 
     return (
-        <Link href={`/product/${_id}`} className="group">
+        <Link href={`/Product/${_id}`} className="group">
             <div className={`relative aspect-square mb-4`}>
                 <Image
                     src={image}

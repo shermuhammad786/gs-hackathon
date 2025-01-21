@@ -15,7 +15,7 @@ interface ProductCardProps {
 
 export function PopularProductCard({ _id, name, price, image, dimensions }: ProductCardProps) {
     return (
-        <Link href={`/product/${_id}`}>
+        <Link href={`/Product/${_id}`}>
             <div className={` `}>
                 <Image
                     src={image}

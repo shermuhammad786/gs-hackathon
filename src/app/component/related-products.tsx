@@ -19,7 +19,7 @@ export function RelatedProducts() {
             <h2 className="text-2xl mb-8">You might also like</h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 {products?.map((product: any) => (
-                    <Link key={product._id} href={`/product/${product._id}`}>
+                    <Link key={product._id} href={`/Product/${product._id}`}>
                         <div className="group">
                             <div className="relative aspect-square mb-4">
                                 <Image

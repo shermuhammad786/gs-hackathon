@@ -202,7 +202,7 @@ export default function ProductsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product: any) => (
-            <Link key={product._id} href={`/product/${product._id}`} className="group">
+            <Link key={product._id} href={`/Product/${product._id}`} className="group">
               <div className="aspect-square overflow-hidden bg-gray-100 rounded-lg">
                 <Image
                   src={product.image}

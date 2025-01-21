@@ -10,7 +10,7 @@ export default function AboutPage() {
           A brand built on the love of craftsmanship, quality and outstanding customer service
         </h1>
         <Link
-          href="/products"
+          href="/Products"
           className="text-sm text-gray-600 hover:text-gray-900 bg-gray-50"
         >
           <Button>
@@ -29,7 +29,7 @@ export default function AboutPage() {
               A great place to tell your story and let your users know a little more about you.
             </p>
           </div>
-          <Link href="/product">
+          <Link href="/Product">
             <Button
               variant="outline"
               className="self-start text-[#1d1d35] border-white hover:bg-[#1d1d35] hover:text-white transition-colors"
