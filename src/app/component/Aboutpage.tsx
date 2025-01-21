@@ -10,7 +10,7 @@ export default function AboutPage() {
           A brand built on the love of craftsmanship, quality and outstanding customer service
         </h1>
         <Link
-          href="/Products"
+          href="/Product"
           className="text-sm text-gray-600 hover:text-gray-900 bg-gray-50"
         >
           <Button>
