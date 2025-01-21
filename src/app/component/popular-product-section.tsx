@@ -20,7 +20,7 @@ interface ProductsSectionProps {
     viewAll?: boolean
 }
 
-export function PopularProductsSection({ title, products, viewAll = true }: ProductsSectionProps) {
+export function PopularProductsSection({ title, products, viewAll = false }: ProductsSectionProps) {
     return (
         <section className="py-16">
             <div className="container mx-auto px-4">

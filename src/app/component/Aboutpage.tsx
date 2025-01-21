@@ -29,12 +29,14 @@ export default function AboutPage() {
               A great place to tell your story and let your users know a little more about you.
             </p>
           </div>
-          <Button
-            variant="outline"
-            className="self-start text-white border-white hover:bg-white hover:text-[#1d1d35] transition-colors"
-          >
-            View collection
-          </Button>
+          <Link href="/product">
+            <Button
+              variant="outline"
+              className="self-start text-[#1d1d35] border-white hover:bg-[#1d1d35] hover:text-white transition-colors"
+            >
+              View collection
+            </Button>
+          </Link>
         </div>
 
         <div className="relative h-[272px]">
